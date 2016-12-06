@@ -257,7 +257,7 @@ function initialize() {
 var abc=[];
 var sites=[];
 <% for (var i in results) {%>
-	abc=["abc", <%= results[i].Lat %>, <%= results[i].Lng %>, 2, 'this is abc'];
+	abc=["mist", <%= results[i].Lat %>, <%= results[i].Lng %>, 50, '12.84'];
 	sites.push(abc);
 
 <% } %>
@@ -287,7 +287,7 @@ function setMarkers(map, markers) {
         var contentString = "Some content";
 
         google.maps.event.addListener(marker, "click", function () {
-            alert(this.html);
+            //alert(this.html);
             infowindow.setContent(this.html);
             infowindow.open(map, this);
         });

@@ -235,11 +235,13 @@ body {
                 <form action="/senorInfo" method="GET">
                 <div id="content" style="display: none;">
                 <div class="row">
-                <h1>Total number of sensors subscribed: 1</h1></div>
+                <h1>Sensors subscribed: </h1></div>
                 <% for(var i in results) { %>
                 <div class="row">
-                
-                <button type="submit" class="btn btn-info" name="sensorId" id="sensorId" value='<%= results[i].sensorId %>'> <%= results[i].sensorName %></button>
+                <div align="center">
+                <button type="submit" style="padding: 20px;  width: 200px; height: 150px; border: 2px solid; border-radius:  15px 50px;" class="btn btn-info" name="sensorId" id="sensorId" value='<%= results[i].sensorId %>'> <%= results[i].sensorName %></button>
+                </div>
+                <br><br>
                 </div>
                 <% } %>
                 </div>

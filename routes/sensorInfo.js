@@ -35,7 +35,10 @@ exports.getWeatherInfo = function(req, res){
 						console.log(JSON.stringify(results[0]));
 						for(var i=0;i<results.length;i++){
 							weather.setCoordinate(results[i].Lat, results[i].Lng);
-							
+							weather.getAllWeather(function(err, JSONObj){
+						        console.log(JSONObj);
+						    });
+							var queryPush="INSERT INTO weatherDetails (email, pressure, humidity, description) values ()";
 							weather.getTemperature(function(err, temp){
 								tempA.push(temp);
 								console.log(tempA);
@@ -58,7 +61,6 @@ exports.getWeatherInfo = function(req, res){
 						    	descA.push(desc);
 						    	console.log(descA);
 						    });	
-						
 						}
 						
 						console.log("Temperature: "+tempA)
@@ -67,8 +69,8 @@ exports.getWeatherInfo = function(req, res){
 						jsonobj.hum=humA;
 						jsonobj.desc=descA;
 						console.log("Json object: "+JSON.stringify(jsonobj.temp));
-					
 						res.render('weatherSensor',{"firstName": req.session.firstName, "results": results});
+						
 					}
 					
 				}, getWeatherDataQuery);
