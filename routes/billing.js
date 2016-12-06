@@ -10,6 +10,14 @@ console.log(days)*/
 
 
 exports.getBillPage = function(req, res){
+	
+	if (req.session.email) {
+		res.header(
+						'Cache-Control',
+						'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+
+	console.log("User's name: "+req.session.firstName);	
+
 	var diff=0;
 	var bill=[];
 	//Calculate the unsubscribed bills:
@@ -30,8 +38,11 @@ exports.getBillPage = function(req, res){
 				bill.push(hours*5);
 				console.log("Bill array"+bill);
 			}
-			res.render('billing', { "results": results, "bill":bill});
+			res.render('billing', { "results": results, "bill":bill, "firstName":req.session.firstName});
 		}
-	}, unsubscriptionQuery);
+	}, unsubscriptionQuery);}
+	else{
+		res.render('customerLogin', {"status":1});
+	}
 	
 };
