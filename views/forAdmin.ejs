@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<head>
+   <script src="https://www.gstatic.com/charts/loader.js"></script>
+   <script type="text/javascript">
+     google.charts.load('current', {packages: ['corechart']});     
+   </script>
+<script>
+
+</script>
+
+</head>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<title>Customer || Homepage</title>
+<style>
+body {
+    overflow-x: hidden;
+ }
+
+/* Toggle Styles */
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 250px;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #000;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 250px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+</style>
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.firstName= "John";
+    $scope.lastName= "Doe";
+});
+</script>
+
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+<div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a>
+                        <%=firstName %> 
+                    </a>
+                </li>
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>
+                    <a href="/billing">Billing</a>
+                </li>
+                <li>
+                    <a href="/subscription">Subscribe</a>
+                </li>
+                <li>
+                    <a href="#">Request Sensor</a>
+                </li>
+                <li>
+                    <a href="/liveSensor">Live Sensor Track</a>
+                </li>
+                <li>
+                    <a href="#">Subscription History</a>
+                </li>
+                <li>
+                    <a href="/mySensors">My Sensors</a>
+                </li>
+                
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>Weather Sensor</h1>
+                        <h2>Select a location</h2>
+                        
+                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                    </div>
+                </div>
+                
+                
+                <div id="error" style="display: none;"><h1>Weather virtual sensor</h1>
+                <br>
+                
+                </div>
+                <form action="/weatherForm" method="GET">
+                <div id="content" >
+                <div class="row">
+                <div id="map" style="width:100%;height:500px"></div>
+
+<script>
+
+
+
+
+var map;
+function initMap() {
+    var myLatlng = new google.maps.LatLng(24.18061975930,79.36565089010);
+    var myOptions = {
+        zoom:7,
+        center: myLatlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById("map"), myOptions);
+    // marker refers to a global variable
+    marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map
+    });
+
+    google.maps.event.addListener(map, "click", function(event) {
+        // get lat/lon of click
+        var clickLat = event.latLng.lat();
+        var clickLon = event.latLng.lng();
+
+        // show in input box
+        document.getElementById("lat").value = clickLat.toFixed(5);
+        document.getElementById("lon").value = clickLon.toFixed(5);
+
+          var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(clickLat,clickLon),
+                draggable: true,
+                map: map
+             });
+    });
+}   
+
+window.onload = function () { initMap() };
+
+
+
+
+
+
+
+/* function initMap() {
+    var myLatLng = {lat: 51.5032520, lng: -0.1278990 };
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 15,
+      center: myLatLng
+    }); */
+	
+    
+    /* google.maps.event.addListener(marker, 'dragend', function (event) {
+        document.getElementById("latbox").value = event.latLng.lat();
+        document.getElementById("lngbox").value = event.latLng.lng();
+    }); */
+    /* google.maps.event.addListener(map, 'click', function(event) {
+        placeMarker(map, event.latLng);
+      });
+    } */
+    
+    /* var marker = new google.maps.Marker({
+      position: myLatLng,
+      draggable: true,
+      map: map,
+      title: 'Hello World!'
+    });
+    var lat = marker.getPosition().lat();
+    var lng = marker.getPosition().lng();
+    
+    document.getElementById("latbox").value = lat;
+    document.getElementById("lngbox").value = lng; */
+    
+  
+/*     
+    function placeMarker(map, location) {
+    	  var marker = new google.maps.Marker({
+    	    position: location,
+    	    draggable: true,
+    	    map: map
+    	  });
+    	  var infowindow = new google.maps.InfoWindow({
+    	    content: 'Latitude: ' + location.lat() + '<br>Longitude: ' + location.lng()
+    	  });
+    	  infowindow.open(map,marker);
+    	  $('#abc').append(location.lat());
+    	}
+
+   */
+  
+</script>
+<!-- <h1>Lattitude: </h1><p id="abc"><input onclick="">
+<h1>Lattitude: </h1> <input type="text" id="lngbox">
+ -->
+Lat: <input type="text" id='lat' name='lat'>
+Lon: <input type="text" id='lon' name='lon'>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMQSHK-zbF7QwdSOSA8GN4ljjS3h0gHas&callback=initMap"></script>
+          
+          	  <input type="submit" value="Go!">
+                </div>
+                </form>
+            </div>
+            
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+
+	
+</body>
+</html>
