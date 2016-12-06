@@ -39,7 +39,7 @@ function myFunc(){
     
 
     console.log("Time: "+today);
-    today = mm+"/"+dd+"/"+yyyy + " " +today.getHours() + ":" + today.getMinutes()+":" + today.getSeconds();
+    today = yyyy+"-"+mm+"-"+dd+ " " +today.getHours() + ":" + today.getMinutes()+":" + today.getSeconds();
     /* var n=twoDigits(x);
     var date;
     date = new Date();
@@ -217,7 +217,7 @@ body {
                     </a>
                 </li>
                 <li>
-                    <a href="/">Dashboard</a>
+                    <a href="/customerHomepage">Dashboard</a>
                 </li>
                 <li>
                     <a href="/billing">Billing</a>
@@ -226,7 +226,7 @@ body {
                     <a href="/subscription">Subscribe</a>
                 </li>
                 <li>
-                    <a href="#">Request Sensor</a>
+                    <a href="/getRequestSensor">Request Sensor</a>
                 </li>
                 <li>
                     <a href="/liveSensor">Live Sensor Track</a>

@@ -17,6 +17,7 @@ var subscriptionPointer=require('./routes/subscription');
 var cusHomePointer=require('./routes/customerHomepage');
 var sensorInfoPointer=require('./routes/sensorInfo');
 var pointBill=require('./routes/billing');
+var requestSensorPointer=require('./routes/requestSensor');
 
 // all environments
 app.use(session({   
@@ -62,6 +63,10 @@ app.get('/userLogin', loginPointer.getLogin);
 app.post('/postSignUpDetails', registerPointer.signed);
 app.post('/customerCheckLogin',loginPointer.checkLogin);
 
+
+///requesting Sensor
+app.get('/getRequestSensor', requestSensorPointer.getRequestSensorPage);
+app.get('/requestSensor', requestSensorPointer.requestSensor);
 
 
 //Induvidual sensor 

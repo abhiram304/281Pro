@@ -20,7 +20,7 @@ exports.getWeatherInfo = function(req, res){
 						'Cache-Control',
 						'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 		var ownKey="1549dd863cf5dccdb6a7593a854d8077";
-		
+		var tempA=[]; var presA=[]; var humA=[];var descA=[];
 		var jsonobj={};
 		var getWeatherDataQuery="SELECT * FROM Weather;"
 			weather.setUnits('metric');
@@ -34,33 +34,40 @@ exports.getWeatherInfo = function(req, res){
 						
 						console.log(JSON.stringify(results[0]));
 						for(var i=0;i<results.length;i++){
-							weather.setCoordinate(results[0].Lat, results[0].Lng);
+							weather.setCoordinate(results[i].Lat, results[i].Lng);
 							
 							weather.getTemperature(function(err, temp){
-								jsonobj[i].temp=temp;
-								console.log(temp);
+								tempA.push(temp);
+								console.log(tempA);
 						    });
 						 
 						    // get the Atm Pressure 
 						    weather.getPressure(function(err, pres){
-						    	jsonobj[i].pres=pres;
-						    	console.log(pres);
+						    	presA.push(pres);
+						    	console.log(presA);
 						    });
 						 
 						    // get the Humidity 
 						    weather.getHumidity(function(err, hum){
-						    	jsonobj[i].hum=hum;
-						    	console.log(hum);
+						    	humA.push(hum);
+						    	console.log(humA);
 						    });
 						 
 						    // get the Description of the weather condition 
 						    weather.getDescription(function(err, desc){
-						    	jsonobj[i].desc=desc;
-						    	console.log(desc);
+						    	descA.push(desc);
+						    	console.log(descA);
 						    });	
+						
 						}
 						
-						console.log("Json object: "+JSON.stringify(jsonobj))
+						console.log("Temperature: "+tempA)
+						jsonobj.temp=tempA;
+						jsonobj.pres=presA;
+						jsonobj.hum=humA;
+						jsonobj.desc=descA;
+						console.log("Json object: "+JSON.stringify(jsonobj.temp));
+					
 						res.render('weatherSensor',{"firstName": req.session.firstName, "results": results});
 					}
 					
@@ -170,7 +177,7 @@ exports.getElephantInfo = function(req, res){
 						console.log("errorrrrrrrr"+err);
 						throw err;
 					} else {
-						console.log(JSON.stringify(results[0]));
+						console.log("elephant results: "+JSON.stringify(results[0]));
 						
 						res.render('elephant',{"firstName": req.session.firstName, "results": results});
 					}
@@ -179,9 +186,7 @@ exports.getElephantInfo = function(req, res){
 		
 		
 		
-		
-		
-		
+	
 		/*weather.getTemperature(function(err, temp){
 	        console.log(temp);
 	    });

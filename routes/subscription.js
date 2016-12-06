@@ -55,6 +55,24 @@ exports.unSubscribeMe = function(req, res){
 		} else {
 			console.log("Time subscribed: "+results[0].timeSubscribed);
 			timeSubscribed=results[0].timeSubscribed;
+			console.log("Time subs being entered into the unsub from suub: "+results[0].timeSubscribed);
+			var dd = timeSubscribed.getDate();
+		    var mm = timeSubscribed.getMonth()+1; //January is 0!
+		    var yyyy = timeSubscribed.getFullYear();
+
+		    if(dd<10) {
+		        dd="0"+dd
+		    } 
+
+		    if(mm<10) {
+		        mm="0"+mm
+		    } 
+
+		    
+
+		    console.log("Time: "+timeSubscribed);
+		    timeSubscribed = yyyy+"-"+mm+"-"+dd+ " " +timeSubscribed.getHours() + ":" + timeSubscribed.getMinutes()+":" + timeSubscribed.getSeconds();
+
 			var inserIntoUnSubscriptionTime="INSERT INTO Unsubscription (email, sensorId, timeSubscribed, timeUnsubscribed) values('"+req.session.email+"', '"+choice+"', '"+timeSubscribed+"', '"+currentTime+"')";
 			mysql.fetchData(function(err, results) {
 				if (err) {

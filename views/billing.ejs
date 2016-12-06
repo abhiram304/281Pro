@@ -141,7 +141,17 @@ body {
     }
 }
 </style>
-
+<script>
+$(window).load(function() {
+	 // executes when complete page is fully loaded, including all frames, objects and images
+	 var ts=$("#ts").val();
+	 var tu=$("#tu").val();
+	 console.log("ts and tu");
+	 var diff=var diff = Math.abs(ts.getTime() - tu.getTime());
+	 console.log(diff);
+	 
+});
+</script>
 </head>
 <body>
 <div id="wrapper">
@@ -155,7 +165,7 @@ body {
                     </a>
                 </li>
                 <li>
-                    <a href="/">Dashboard</a>
+                    <a href="/customerHomepage">Dashboard</a>
                 </li>
                 <li>
                     <a href="/billing">Billing</a>
@@ -164,7 +174,7 @@ body {
                     <a href="/subscription">Subscribe</a>
                 </li>
                 <li>
-                    <a href="#">Request Sensor</a>
+                    <a href="/getRequestSensor">Request Sensor</a>
                 </li>
                 <li>
                     <a href="liveSensor/">Live Sensor Track</a>
@@ -203,7 +213,8 @@ body {
         <th>Sensor Id</th>
         <th>Time Subscribed</th>
         <th>Time Un-Subscribed</th>
-        <th>Bill</th>>
+       <th>Rate(per hour)</th>
+        <th>Bill($)</th>
       </tr>
     </thead>
 
@@ -211,11 +222,11 @@ body {
 
 <% for(var i in results) { %>
       <tr>
-      	
         <td><%=results[i].sensorId %></td>
         <td><%=results[i].timeSubscribed%></td>
         <td><%=results[i].timeUnsubscribed%></td>
-        <td>11</td>
+        <td>5</td>
+        <td><%=bill[i]%></td>
       </tr>
       <% } %> 
     </tbody>
@@ -228,7 +239,7 @@ function drawChart() {
 	console.log("Hello");
    // Define the chart to be drawn.
    var data = new google.visualization.DataTable();
-   data.addColumn('string', 'Browser');
+   data.addColumn('string', '');
    data.addColumn('number', 'Percentage');
    data.addRows([
       ['Weather', 15.0],
@@ -237,7 +248,7 @@ function drawChart() {
    ]);
    
    // Set chart options
-   var options = {'title':'Browser market shares at a specific website, 2014',
+   var options = {'title':'Bills',
       'width':550,
       'height':400};
 
