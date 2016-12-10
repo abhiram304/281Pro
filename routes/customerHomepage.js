@@ -10,7 +10,7 @@ exports.getCustomerHomepage = function(req, res){
 	
 	var checkU="SELECT * from Subscription WHERE email='"+req.session.email+"'";
 	var checkUserSubscription="SELECT * FROM Sensor s INNER JOIN Subscription sb ON s.sensorId = sb.sensorId AND sb.email='"+req.session.email+"'";
-	
+	//var getCustomerTotalBill="SELECT * from billing where "
 	mysql.fetchData(function(err, results) {
 		if (err) {
 			throw err;
@@ -19,6 +19,21 @@ exports.getCustomerHomepage = function(req, res){
 				var jsonString1= JSON.stringify(results);
 				var passParsed= JSON.parse(jsonString1);
 				console.log("aaaaaaa"+jsonString1);
+				
+				mysql.fetchData(function(err, results) {
+					if (err) {
+						throw err;
+					} else {
+						if(results.length>0){
+							
+							
+						}
+						else{
+							console.log("problem while getting the bill");
+						}	
+					}
+				}, checkUserSubscription);
+				
 				res.render('customerHomepage', { "firstName": req.session.firstName, "subsrcibed": 1, "results": results });
 			}
 			else{

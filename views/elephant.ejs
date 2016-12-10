@@ -246,7 +246,7 @@ function initMap() {
 <% } %>
     /* var flightPlanCoordinates = [
       
-		{lat: 0.22899000346661, lng:37.30777359008789 },
+		{lat: 0.22x899000346661, lng:37.30777359008789 },
       {lat:0.23029999434948 , lng: 37.30535888671875},
       {lat:0.22845999896526 , lng:37.30212020874023 },
       {lat:0.22763998806477 , lng: 37.30067825317383},
@@ -266,6 +266,18 @@ function initMap() {
 
     flightPath.setMap(map);
   }
+  
+  
+function animateCircle(line) {
+    var count = 0;
+    window.setInterval(function() {
+      count = (count + 1) % 900;
+
+      var icons = line.get('icons');
+      icons[0].offset = (count / 2) + '%';
+      line.set('icons', icons);
+  }, 20);
+}
 </script>
 <script async defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOhURgNwF1H_SJFk1PoZranwUYif8H2W0&callback=initMap">
