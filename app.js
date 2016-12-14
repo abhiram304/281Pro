@@ -18,7 +18,7 @@ var cusHomePointer=require('./routes/customerHomepage');
 var sensorInfoPointer=require('./routes/sensorInfo');
 var pointBill=require('./routes/billing');
 var requestSensorPointer=require('./routes/requestSensor');
-
+var liveSensorTrackPointer=require('./routes/liveSensorTrack');
 // all environments
 app.use(session({   
 	  
@@ -27,7 +27,7 @@ app.use(session({
 	duration: 30 * 60 * 1000,    //setting the time for active session
 	activeDuration: 5 * 60 * 1000,  })); // setting time for the session to be active when the window is open // 5 minutes set currently
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 8080);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.favicon());
@@ -46,7 +46,7 @@ app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/billing', pointBill.getBillPage);
 
-app.get('/liveSensor', point.getliveSensorPage);
+app.get('/liveSensor', liveSensorTrackPointer.getliveSensorPage);
 app.get('/mySensors', point.getMySensorsPage);
 
 //CUSTOMER HOMEPAGE
@@ -62,6 +62,7 @@ app.get('/userRegister', registerPointer.signup);
 app.get('/userLogin', loginPointer.getLogin);
 app.post('/postSignUpDetails', registerPointer.signed);
 app.post('/customerCheckLogin',loginPointer.checkLogin);
+app.get('/logout',loginPointer.logout);
 
 
 ///requesting Sensor
@@ -75,6 +76,7 @@ app.get('/senorInfo', sensorInfoPointer.getMysensorInfo);
 app.get('/weatherSensor', sensorInfoPointer.getWeatherInfo);
 
 app.get('/elephantSensor', sensorInfoPointer.getElephantInfo);
+app.get('/elephantWithDate', sensorInfoPointer.getElephantInfoWithDates);
 //app.get('/weatherForm', sensorInfoPointer.setWeatherDetails);
 
 

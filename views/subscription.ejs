@@ -239,7 +239,7 @@ body {
                 </li>
                 
                 <li>
-                    <a href="#">Contact</a>
+                    <a href="/logout">Logout</a>
                 </li>
             </ul>
         </div>
@@ -273,7 +273,7 @@ body {
      <input type="text" name="currentTime" id="currentTime">
      <% for(var i in results.resultsSub) { %>
       <tr>
-      	<td><input type="checkbox" name="sensorIdToUnSubscribe" value='<%=results.resultsSub[i].sensorId %>'></td>
+      	<td><input type="radio" name="sensorIdToUnSubscribe" value='<%=results.resultsSub[i].sensorId %>'></td>
         <td><%=results.resultsSub[i].sensorId %></td>
 		<td><%=results.resultsSub[i].sensorName%></td>
         <td><%=results.resultsSub[i].timeSubscribed%></td>
@@ -283,7 +283,7 @@ body {
       <% } %> 
     </tbody>
   </table>
-  <input type="submit" >
+  <button type="submit"  class="btn btn-success">Un-Subscribe</button>
 		</form>
 			<br>
 			<br>	
@@ -301,14 +301,14 @@ body {
     <input type="text" name="currentTime1" id="currentTime1">
      <% for(var i in results.resultsNotSub) { %>
       <tr>
-      	<td><input type="checkbox" name="sensorIdToSubscribe" value='<%=results.resultsNotSub[i].sensorId %>'></td>
+      	<td><input type="radio" name="sensorIdToSubscribe" value='<%=results.resultsNotSub[i].sensorId %>'></td>
         <td><%=results.resultsNotSub[i].sensorId %></td>
 		<td><%=results.resultsNotSub[i].sensorName%></td>        
       </tr>
       <% } %> 
     </tbody>
   </table>
-  <input type="submit" >
+  <button type="submit"  class="btn btn-success">Subscribe</button>
 		</form>
 				
                 </div>

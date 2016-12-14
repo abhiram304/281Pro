@@ -112,3 +112,9 @@ exports.checkLogin = function(req, res){
 	
 	//res.render('LoginSuccessful', { title: 'Express' });
 
+/*LOGOUT*/
+exports.logout = function(req,res)
+{
+	req.session.destroy();
+	res.render('customerLogin', {"status":1});
+};

@@ -218,3 +218,66 @@ exports.getElephantInfo = function(req, res){
 		res.render('customerLogin', {"status":1});
 	}
 };
+
+
+
+
+
+//getElephantInfoWithDates
+
+exports.getElephantInfoWithDates = function(req, res){
+	if (req.session.email) {
+		res.header(
+						'Cache-Control',
+						'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+		var ownKey="1549dd863cf5dccdb6a7593a854d8077";
+		
+		var date=req.param("datepicker");
+		console.log("Date is : "+date);
+		var getElephantDataQuery="SELECT * FROM GPX1 WHERE DATE_FORMAT(description, '%m-%d')='"+date+"'";
+		
+		mysql.fetchData(
+				function(err, results) {
+					if (err) {
+						console.log("errorrrrrrrr"+err);
+						throw err;
+					} else {
+						console.log("elephant results: "+JSON.stringify(results[0]));
+						
+						res.render('elephant',{"firstName": req.session.firstName, "results": results});
+					}
+					
+				}, getElephantDataQuery);
+		
+		
+		
+	
+		/*weather.getTemperature(function(err, temp){
+	        console.log(temp);
+	    });
+	 
+	    // get the Atm Pressure 
+	    weather.getPressure(function(err, pres){
+	        console.log(pres);
+	    });
+	 
+	    // get the Humidity 
+	    weather.getHumidity(function(err, hum){
+	        console.log(hum);
+	    });
+	 
+	    // get the Description of the weather condition 
+	    weather.getDescription(function(err, desc){
+	        console.log(desc);
+	    });
+	    
+	    // get all the JSON file returned from server (rich of info) 
+	    weather.getAllWeather(function(err, JSONObj){
+	        console.log(JSONObj);
+	    });*/
+	
+	}
+	else{
+		res.render('customerLogin', {"status":1});
+	}
+};

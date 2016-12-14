@@ -17,6 +17,10 @@ exports.getliveSensorPage = function(req, res){
 };
 
 
+
+
+
+
 exports.getMySensorsPage = function(req, res){
 	if (req.session.email) {
 		res.header(

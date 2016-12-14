@@ -27,7 +27,7 @@ exports.getBillPage = function(req, res){
 		if (err) {
 			throw err;
 		} else {
-			var jsonBills={};
+			var jsonBills={}; var total=0;
 			console.log("In billing page- unsubscription details getting"+ JSON.stringify(results[0]));
 			for (var i in results){
 				ts=moment(results[i].timeSubscribed);
@@ -35,10 +35,11 @@ exports.getBillPage = function(req, res){
 				var duration = moment.duration(tu.diff(ts));
 				var hours = duration.asHours();
 				console.log("Difference in time: "+(hours*5));
-				bill.push(hours*5);
+				total=total+Math.round((hours*5) * 100) / 100;
+				bill.push(Math.round((hours*5) * 100) / 100);
 				console.log("Bill array"+bill);
 			}
-			res.render('billing', { "results": results, "bill":bill, "firstName":req.session.firstName});
+			res.render('billing', { "results": results, "bill":bill, "firstName":req.session.firstName, "total":total});
 		}
 	}, unsubscriptionQuery);}
 	else{

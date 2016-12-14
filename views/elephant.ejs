@@ -8,6 +8,7 @@
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" type="text/css" media="all">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script
@@ -164,6 +165,22 @@ app.controller('myCtrl', function($scope) {
     $scope.firstName= "John";
     $scope.lastName= "Doe";
 });
+
+
+
+
+
+
+$('.DateTextBox.NoYear').datepicker({
+    beforeShow: function (input, inst) {
+      inst.dpDiv.addClass('NoYearDatePicker');
+    },
+    onClose: function(dateText, inst){
+        inst.dpDiv.removeClass('NoYearDatePicker');
+    }
+});
+
+$('#datepicker').datepicker( { changeYear: false, dateFormat: 'dd/mm',});
 </script>
 
 </head>
@@ -201,7 +218,7 @@ app.controller('myCtrl', function($scope) {
                 </li>
                 
                 <li>
-                    <a href="#">Contact</a>
+                    <a href="/logout">Logout</a>
                 </li>
             </ul>
         </div>
@@ -236,6 +253,15 @@ function initMap() {
       center: {lat: 0.22899000346661, lng: 37.30777359008789},
       mapTypeId: 'terrain'
     });
+    
+    
+    var lineSymbol = {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 8,
+            strokeColor: '#393'
+          };
+    
+    
  var flightPlanCoordinates=[];
     
     <% for (var i in results) {%>
@@ -256,7 +282,7 @@ function initMap() {
 	  {lat: 0.18797999620438, lng:37.31250000000000 }
 	
     ]; */
-    var flightPath = new google.maps.Polyline({
+    /* var flightPath = new google.maps.Polyline({
       path: flightPlanCoordinates,
       geodesic: true,
       strokeColor: '#FF0000',
@@ -265,18 +291,34 @@ function initMap() {
     });
 
     flightPath.setMap(map);
+  } */
+  
+  
+  /* [{lat: 0.190099, lng: 37.3131}, {lat: 0.227, lng: 37.3006}] */
+  var line = new google.maps.Polyline({
+      path: flightPlanCoordinates,
+	<!-- path: [{lat: 0.22x8, lng:37.30 }, {lat: 0.18, lng:37.31 }],   -->
+      icons: [{
+        icon: lineSymbol,
+        offset: '100%'
+      }],
+      map: map
+    });
+
+    animateCircle(line);
   }
+  
   
   
 function animateCircle(line) {
     var count = 0;
     window.setInterval(function() {
-      count = (count + 1) % 900;
+      count = (count + 1) % 100;
 
       var icons = line.get('icons');
       icons[0].offset = (count / 2) + '%';
       line.set('icons', icons);
-  }, 20);
+  }, 1000);
 }
 </script>
 <script async defer
@@ -321,9 +363,21 @@ console.log(JSON.stringify(flightPlanCoordinates));
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOhURgNwF1H_SJFk1PoZranwUYif8H2W0&callback=initMap">
 </script>
  -->          
-          	  <input type="submit" value="Go!">
+          	 
+                
                 </div>
                 </form>
+                
+                <br><br>
+                <form action="/elephantWithDate" method="GET">
+                <div id="content" align="center">
+                <div class="row">
+                Date<input type="text" name="datepicker" id="datepicker" class="DateTextBox NoYear" placeholder='mm-dd'>
+          	<button type="submit"  class="btn btn-success">Track with Dates</button>
+                </div></div>
+                </form>
+            
+           
             </div>
             
         </div>

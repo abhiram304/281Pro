@@ -179,7 +179,7 @@ body {
                 </li>
                 
                 <li>
-                    <a href="#">Contact</a>
+                    <a href="/logout">Logout</a>
                 </li>
             </ul>
         </div>
@@ -201,20 +201,78 @@ body {
 <script>
 
 function initMap() {
-    var myLatLng = {lat: 51.5032520, lng: -0.1278990 };
-
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,
-      center: myLatLng
+      center: {lat: 37.3333775, lng: -121.9129983},
+      mapTypeId: 'terrain'
+    });
+    
+    
+    var lineSymbol = {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 8,
+            strokeColor: '#393'
+          };
+    
+    
+ var flightPlanCoordinates=[];
+    
+    <% for (var i in results) {%>
+	abc={ lat: <%= results[i].lattitude %>, lng: <%= results[i].longitude %>};
+	flightPlanCoordinates.push(abc);
+	
+
+<% } %>
+    /* var flightPlanCoordinates = [
+      
+		{lat: 0.22x899000346661, lng:37.30777359008789 },
+      {lat:0.23029999434948 , lng: 37.30535888671875},
+      {lat:0.22845999896526 , lng:37.30212020874023 },
+      {lat:0.22763998806477 , lng: 37.30067825317383},
+	  {lat: 0.22410000860691, lng:37.30423355102539 },
+	  {lat:0.19539000093937 , lng: 37.30944061279297},
+	  {lat:0.19009999930859 , lng:37.31313705444336 },
+	  {lat: 0.18797999620438, lng:37.31250000000000 }
+	
+    ]; */
+    /* var flightPath = new google.maps.Polyline({
+      path: flightPlanCoordinates,
+      geodesic: true,
+      strokeColor: '#FF0000',
+      strokeOpacity: 1.0,
+      strokeWeight: 2
     });
 
-    var marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map,
-      title: 'Hello World!'
+    flightPath.setMap(map);
+  } */
+  
+  
+  /* [{lat: 0.190099, lng: 37.3131}, {lat: 0.227, lng: 37.3006}] */
+  var line = new google.maps.Polyline({
+      path: flightPlanCoordinates,
+	<!-- path: [{lat: 0.22x8, lng:37.30 }, {lat: 0.18, lng:37.31 }],   -->
+      icons: [{
+        icon: lineSymbol,
+        offset: '100%'
+      }],
+      map: map
     });
+
+    animateCircle(line);
   }
-</script>
+  
+  
+  
+function animateCircle(line) {
+    var count = 0;
+    window.setInterval(function() {
+      count = (count + 1) % 100;
+
+      var icons = line.get('icons');
+      icons[0].offset = (count / 2) + '%';
+      line.set('icons', icons);
+  }, 500);
+}</script>
 <h1>Lattitude: 51.5032520</h1>
 <h1>Lattitude: -0.1278990</h1>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMQSHK-zbF7QwdSOSA8GN4ljjS3h0gHas&callback=initMap"></script>
